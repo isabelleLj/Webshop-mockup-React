@@ -2,14 +2,8 @@ import { useForm } from "react-hook-form";
 import { Input } from "../components/ui/input";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-
-type CheckOutData = {
-  name: string;
-  email: string;
-  address: string;
-  zip: string;
-  city: string;
-};
+import { zodResolver } from "@hookform/resolvers/zod";
+import { checkoutSchema, type CheckoutData } from "../schemas/checkoutSchema";
 
 function Checkout() {
   const { cart, clearCart } = useCart();
@@ -21,9 +15,11 @@ function Checkout() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckOutData>();
+  } = useForm<CheckoutData>({
+    resolver: zodResolver(checkoutSchema),
+  });
 
-  const onSubmit = (data: CheckOutData) => {
+  const onSubmit = (data: CheckoutData) => {
     navigate("/order-confirmation", {
       state: {
         customer: data,
@@ -56,64 +52,34 @@ function Checkout() {
         <div>
           <label htmlFor="name">Namn</label>
 
-          <Input
-            id="name"
-            {...register("name", {
-              required: "Namn är obligatoriskt",
-            })}
-          />
+          <Input id="name" {...register("name")} />
           {errors.name && <p>{errors.name.message}</p>}
         </div>
 
         <div>
           <label htmlFor="email">E-post</label>
 
-          <Input
-            id="email"
-            type="email"
-            {...register("email", {
-              required: "E-post är obligatoriskt",
-            })}
-          />
+          <Input id="email" type="email" {...register("email")} />
           {errors.email && <p>{errors.email.message}</p>}
         </div>
 
         <div>
           <label htmlFor="address">Adress</label>
-          <Input
-            id="address"
-            {...register("address", {
-              required: "Adress är obligatoriskt",
-            })}
-          />
+          <Input id="address" {...register("address")} />
           {errors.address && <p>{errors.address.message}</p>}
         </div>
 
         <div>
           <label htmlFor="zip">Postnummer</label>
 
-          <Input
-            id="zip"
-            {...register("zip", {
-              required: "Postnummer är obligatoriskt",
-              pattern: {
-                value: /^\d{5}$/,
-                message: "Postnummer måste vara exakt 5 siffror",
-              },
-            })}
-          />
+          <Input id="zip" {...register("zip")} />
           {errors.zip && <p>{errors.zip.message}</p>}
         </div>
 
         <div>
           <label htmlFor="city">Stad</label>
 
-          <Input
-            id="city"
-            {...register("city", {
-              required: "Stad är obligatoriskt",
-            })}
-          />
+          <Input id="city" {...register("city")} />
           {errors.city && <p>{errors.city.message}</p>}
         </div>
 
