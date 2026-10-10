@@ -3,6 +3,7 @@ export type Product = {
   sku: string;
   title: string;
   price: number;
+  description: string;
   stock: number;
   thumbnail: string;
 };

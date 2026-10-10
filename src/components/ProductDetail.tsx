@@ -1,26 +1,9 @@
-import { useState, type ChangeEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import { type Product } from "../types/ProductType";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
+import { useQuery } from "@tanstack/react-query";
 
 function ProductDetail() {
   const { id } = useParams();
-  const [newPrice, setNewPrice] = useState("");
-
-  const mutation = useMutation({
-    mutationFn: (newPrice: number) =>
-      fetch(`https://dummyjson.com/products/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          price: newPrice,
-        }),
-      }).then((res) => res.json()),
-  });
 
   const { data, isLoading, error } = useQuery<Product>({
     queryKey: ["product", id],
@@ -41,36 +24,35 @@ function ProductDetail() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl p-6">
-      <h1 className="mb-4 text-3xl font-bold">{data.title}</h1>
-      <p className="mb-2 text-xl">Pris: {data.price} kr</p>
-      <p className="mb-6">{data.stock ? "I lager" : "Slut i lager"}</p>
-      <p>Artikelnummer: {data.sku}</p>
-
-      <Input
-        type="number"
-        value={newPrice}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setNewPrice(event.target.value)
-        }
-        placeholder="Nytt pris"
-      />
-
-      <Button
-        variant="secondary"
-        onClick={() => mutation.mutate(Number(newPrice))}
-        disabled={mutation.isPending}
-      >
-        {mutation.isPending ? "Uppdaterar..." : "Ändra pris"}
-      </Button>
-
-      {mutation.isSuccess && <p>Priset har uppdaterats!</p>}
-
-      {mutation.isError && <p>Något gick fel vid uppdateringen.</p>}
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 bg-warm-white px-6 py-12 md:grid-cols-2 md:px-12 md:py-16">
+      <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+        <img
+          src={data.thumbnail}
+          alt={data.title}
+          className="h-80 w-full object-contain"
+        />
+      </div>
+      <div>
+        <h1 className="mb-6 text-2xl font-bold tracking-tight text-brand-dark">
+          {data.title}
+        </h1>
+        <p className="mb-4 text-1xl font-bold text-brand-dark">
+          {data.price.toLocaleString("sv-SE")} kr
+        </p>
+        <p className="mb-6 leading-relaxed text-gray-600">{data.description}</p>
+        <p
+          className={`mb-6 font-medium ${
+            data.stock > 0 ? "text-green-700" : "text-red-600"
+          }`}
+        >
+          {data.stock > 0 ? "I lager" : "Slut i lager"}
+        </p>
+        <p className="text-sm text-gray-500">Artikelnummer: {data.sku}</p>
+      </div>
 
       <Link
         to="/"
-        className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        className="inline-block w-fit rounded-xl bg-brand px-5 py-3 text-white transition-colors hover:bg-brand-dark md:col-span-2"
       >
         Tillbaka till butiken
       </Link>

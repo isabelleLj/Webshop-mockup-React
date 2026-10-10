@@ -24,14 +24,13 @@ function ProductList({}: ProductListProps) {
   return (
     <section className="bg-warm-white px-6 py-12 md:px-12 md:py-16">
       <div className="mx-auto max-w-7xl">
-        {/* Rubrik och introduktion */}
         <div className="mb-10">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
-            Välkommen till vår butik
+            Välkommen till butiken
           </p>
 
           <h2 className="text-3xl font-bold tracking-tight text-brand-dark md:text-4xl">
-            Upptäck våra produkter
+            Upptäck produkterna
           </h2>
 
           <p className="mt-3 max-w-2xl leading-relaxed text-gray-600">
@@ -39,7 +38,6 @@ function ProductList({}: ProductListProps) {
           </p>
         </div>
 
-        {/* Sökfält och uppdateringsknapp */}
         <div className="mb-10 flex flex-col gap-4 sm:flex-row">
           <input
             type="text"
@@ -58,12 +56,10 @@ function ProductList({}: ProductListProps) {
           </Button>
         </div>
 
-        {/* Laddningsmeddelande */}
         {isLoading && (
           <p className="py-8 text-center text-gray-600">Hämtar produkter...</p>
         )}
 
-        {/* Felmeddelande */}
         {error && (
           <div className="rounded-xl border border-red-200 bg-red-50 p-6">
             <p className="font-semibold text-red-700">
@@ -80,8 +76,7 @@ function ProductList({}: ProductListProps) {
           </div>
         )}
 
-        {/* Produktgalleri */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {data?.products
             .filter((product: Product) =>
               product.title

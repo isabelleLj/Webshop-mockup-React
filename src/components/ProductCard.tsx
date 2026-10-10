@@ -8,6 +8,7 @@ type ProductCardProps = {
   id: number;
   name: string;
   price: number;
+  description: string;
   stock: number;
   sku: string;
   image: string;
@@ -18,27 +19,23 @@ function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
 
   return (
     <Card className="group overflow-hidden rounded-2xl border border-gray-200 bg-white py-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-      {/* Produktbild */}
       <Link to={`/products/${id}`} className="block overflow-hidden bg-gray-50">
         <img
           src={image}
           alt={name}
-          className="h-64 w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+          className="h-60 w-full object-contain p-1 transition-transform duration-300 group-hover:scale-105"
         />
       </Link>
 
-      <CardContent className="flex h-full flex-col p-5">
-        {/* Produktnamn */}
-        <h3 className="min-h-14 text-lg font-semibold leading-snug text-brand-dark">
+      <CardContent className="flex flex-col p-4">
+        <h3 className="text-sx font-semibold leading-snug text-brand-dark">
           {name}
         </h3>
 
-        {/* Pris */}
-        <p className="mt-3 text-2xl font-bold text-brand-dark">
+        <p className="mt-3 text-1xl font-bold text-brand-dark">
           {price.toLocaleString("sv-SE")} kr
         </p>
 
-        {/* Lagersaldo */}
         <p
           className={clsx(
             "mt-2 text-sm font-medium",
@@ -50,8 +47,7 @@ function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
 
         <p className="mt-1 text-xs text-gray-500">Artikelnummer: {sku}</p>
 
-        {/* Knappar */}
-        <div className="mt-auto flex flex-col gap-3 pt-5">
+        <div className="mt-auto flex flex-col gap-2 ">
           <Link
             to={`/products/${id}`}
             className={buttonVariants({

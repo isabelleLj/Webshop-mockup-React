@@ -25,9 +25,16 @@ function App() {
       />
 
       <StoreHours />
-      <PromoBanner message="20% rabatt på all djurmat" />
       <Routes>
-        <Route path="/" element={<ProductList />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <PromoBanner message="20% rabatt på all djurmat" />
+              <ProductList />
+            </>
+          }
+        />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/about" element={<About />} />
