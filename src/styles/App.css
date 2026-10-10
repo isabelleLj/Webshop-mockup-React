@@ -7,9 +7,16 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --color-brand: #2563eb;
-    --radius-card: 12px;
+  
+    --color-brand: #365747;
+    --color-brand-light: #e8efe9;
+    --color-brand-dark: #263e32;
+    --color-warm-white: #faf9f6;
+    --color-sand: #f0e8dc;
+
+    --radius-card: 16px;
     --spacing-card: 16px;
+
 }
 
 

@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { buttonVariants } from "../components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
+import { buttonVariants, Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
 import { useCart } from "../context/CartContext";
-import { Button } from "../components/ui/button";
 
 type ProductCardProps = {
   id: number;
@@ -16,52 +10,78 @@ type ProductCardProps = {
   price: number;
   stock: number;
   sku: string;
+  image: string;
 };
 
-function ProductCard({ id, name, price, stock, sku }: ProductCardProps) {
+function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
   const { addToCart } = useCart();
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{name}</CardTitle>
-      </CardHeader>
 
-      <CardContent>
-        <p className="text-gray-700">Pris: {price} kr</p>
+  return (
+    <Card className="group overflow-hidden rounded-2xl border border-gray-200 bg-white py-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      {/* Produktbild */}
+      <Link to={`/products/${id}`} className="block overflow-hidden bg-gray-50">
+        <img
+          src={image}
+          alt={name}
+          className="h-64 w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+        />
+      </Link>
+
+      <CardContent className="flex h-full flex-col p-5">
+        {/* Produktnamn */}
+        <h3 className="min-h-14 text-lg font-semibold leading-snug text-brand-dark">
+          {name}
+        </h3>
+
+        {/* Pris */}
+        <p className="mt-3 text-2xl font-bold text-brand-dark">
+          {price.toLocaleString("sv-SE")} kr
+        </p>
+
+        {/* Lagersaldo */}
         <p
           className={clsx(
-            "font-semibold",
-            stock > 0 ? "text-green-600" : "text-red-600",
+            "mt-2 text-sm font-medium",
+            stock > 0 ? "text-green-700" : "text-red-600",
           )}
         >
-          {stock > 0 ? "I lager" : "Slut i lager"}
+          {stock > 0 ? "✓ I lager" : "Slut i lager"}
         </p>
-        <p className="mt-2 text-sm text-gray-500">Artikelnummer:{sku}</p>
 
-        <Link
-          to={`/products/${id}`}
-          className={buttonVariants({
-            variant: "default",
-            className: "text-white",
-          })}
-        >
-          Visa detaljer
-        </Link>
-        <Button
-          onClick={() =>
-            addToCart({
-              id,
-              name,
-              price,
-              stock,
-              sku,
-            })
-          }
-        >
-          Lägg i kundvagn
-        </Button>
+        <p className="mt-1 text-xs text-gray-500">Artikelnummer: {sku}</p>
+
+        {/* Knappar */}
+        <div className="mt-auto flex flex-col gap-3 pt-5">
+          <Link
+            to={`/products/${id}`}
+            className={buttonVariants({
+              variant: "outline",
+              className:
+                "w-full rounded-xl border-brand text-brand hover:bg-brand-light",
+            })}
+          >
+            Visa detaljer
+          </Link>
+
+          <Button
+            disabled={stock <= 0}
+            onClick={() =>
+              addToCart({
+                id,
+                name,
+                price,
+                stock,
+                sku,
+              })
+            }
+            className="w-full rounded-xl bg-brand text-white hover:bg-brand-dark"
+          >
+            Lägg i kundvagn
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
 }
+
 export default ProductCard;
