@@ -65,7 +65,7 @@ function Cart() {
                 onClick={() => removeFromCart(product.id)}
                 className=" cursor-pointer rounded-lg px-1 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 hover:text-red-700"
               >
-                Ta bort
+                Remove
               </button>
             </div>
           ))}
@@ -84,7 +84,7 @@ function Cart() {
               to="/checkout"
               className="mt-8 inline-block rounded-xl bg-brand px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
             >
-              Till kassan
+              Checkout
             </Link>
           </>
         )}

@@ -46,7 +46,7 @@ function ProductList({}: ProductListProps) {
         <div className="mb-10 flex flex-col gap-4 sm:flex-row">
           <input
             type="text"
-            placeholder="Sök efter en produkt..."
+            placeholder="Search for product..."
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-800 shadow-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 sm:max-w-md"

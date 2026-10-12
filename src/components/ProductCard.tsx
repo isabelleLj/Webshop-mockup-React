@@ -62,7 +62,7 @@ function ProductCard({ product }: ProductCardProps) {
             stock > 0 ? "text-green-700" : "text-red-600",
           )}
         >
-          {stock > 0 ? "✓ I lager" : "Slut i lager"}
+          {stock > 0 ? "In stock" : "Out of stock"}
         </p>
 
         <p className="mt-1 text-xs text-gray-500">Articlenumber: {sku}</p>

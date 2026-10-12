@@ -31,59 +31,59 @@ function Checkout() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-4 text-2xl font-bold">Kassan</h1>
+      <h1 className="mb-4 text-2xl font-bold">Checkout</h1>
 
       <div>
-        <h2>Din beställning</h2>
+        <h2>Your order</h2>
 
         {cart.map((product) => (
           <div key={product.id}>
-            <p>{product.name}</p>
+            <p>{product.title}</p>
             <p>{product.price} kr</p>
           </div>
         ))}
 
-        <p className="mt-4 font-bold">Totalt: {totalPrice} kr </p>
+        <p className="mt-4 font-bold">Totally: {totalPrice} kr </p>
       </div>
 
-      <p>Här fyller du i dina uppgifter.</p>
+      <p>Here you register your information.</p>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="name">Namn</label>
+          <label htmlFor="name">Name</label>
 
           <Input id="name" {...register("name")} />
           {errors.name && <p>{errors.name.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="email">E-post</label>
+          <label htmlFor="email">E-mail</label>
 
           <Input id="email" type="email" {...register("email")} />
           {errors.email && <p>{errors.email.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="address">Adress</label>
+          <label htmlFor="address">Address</label>
           <Input id="address" {...register("address")} />
           {errors.address && <p>{errors.address.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="zip">Postnummer</label>
+          <label htmlFor="zip">Zipcode</label>
 
           <Input id="zip" {...register("zip")} />
           {errors.zip && <p>{errors.zip.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="city">Stad</label>
+          <label htmlFor="city">City</label>
 
           <Input id="city" {...register("city")} />
           {errors.city && <p>{errors.city.message}</p>}
         </div>
 
-        <button type="submit">Skicka</button>
+        <button type="submit">Send</button>
       </form>
     </div>
   );

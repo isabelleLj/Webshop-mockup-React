@@ -69,7 +69,7 @@ function ProductDetail() {
             data.stock > 0 ? "text-green-700" : "text-red-600"
           }`}
         >
-          {data.stock > 0 ? "I lager" : "Slut i lager"}
+          {data.stock > 0 ? "In stock" : "Out of stock"}
         </p>
 
         <Button
@@ -86,7 +86,7 @@ function ProductDetail() {
           }}
           className="mb-6 w-full rounded-xl bg-brand py-6 text-base font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {data.stock > 0 ? "Lägg i kundvagn" : "Slut i lager"}
+          {data.stock > 0 ? "Add to cart" : "Out of stock"}
         </Button>
         {addedToCart && (
           <p className="mt-3 text-sm font-medium text-green-700" role="status">
