@@ -11,7 +11,7 @@ type ProductCardProps = {
 };
 
 function ProductCard({ product }: ProductCardProps) {
-  const { id, name, price, stock, sku, thumbnail, category } = product;
+  const { id, title, price, stock, sku, thumbnail, category } = product;
   const discounted = hasDiscount(category);
   const discountedPrice = getDiscountedPrice(price, category);
 
@@ -24,14 +24,14 @@ function ProductCard({ product }: ProductCardProps) {
       <Link to={`/products/${id}`} className="block overflow-hidden bg-gray-50">
         <img
           src={thumbnail}
-          alt={name}
+          alt={title}
           className="h-60 w-full object-contain p-1 transition-transform duration-300 group-hover:scale-105"
         />
       </Link>
 
       <CardContent className="flex flex-col p-4">
         <h3 className="text-sx font-semibold leading-snug text-brand-dark">
-          {name}
+          {title}
         </h3>
 
         <p className="mt-1 text-xs text-gray-500">Category: {category}</p>
@@ -84,7 +84,7 @@ function ProductCard({ product }: ProductCardProps) {
             onClick={() =>
               addToCart({
                 id,
-                name,
+                title,
                 category,
                 price: getDiscountedPrice(price, category),
                 stock,
