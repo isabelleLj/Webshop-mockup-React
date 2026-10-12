@@ -5,7 +5,7 @@ function AddToCartButton() {
 
   return (
     <button onClick={() => setIsAdded(!isAdded)}>
-      {isAdded ? "Tillagd" : "Lägg i varukorg"}
+      {isAdded ? "Added" : "Add to cart"}
     </button>
   );
 }

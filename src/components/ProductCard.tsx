@@ -3,25 +3,27 @@ import clsx from "clsx";
 import { buttonVariants, Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { useCart } from "../context/CartContext";
+import { getDiscountedPrice, hasDiscount } from "../utils/pricing";
+import type { Product } from "../types/ProductType";
 
 type ProductCardProps = {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  stock: number;
-  sku: string;
-  image: string;
+  product: Product;
 };
 
-function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
+function ProductCard({ product }: ProductCardProps) {
+  const { id, name, price, stock, sku, thumbnail, category } = product;
+  const discounted = hasDiscount(category);
+  const discountedPrice = getDiscountedPrice(price, category);
+
   const { addToCart } = useCart();
+
+  console.log("product: ", product);
 
   return (
     <Card className="group overflow-hidden rounded-2xl border border-gray-200 bg-white py-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <Link to={`/products/${id}`} className="block overflow-hidden bg-gray-50">
         <img
-          src={image}
+          src={thumbnail}
           alt={name}
           className="h-60 w-full object-contain p-1 transition-transform duration-300 group-hover:scale-105"
         />
@@ -32,9 +34,27 @@ function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
           {name}
         </h3>
 
-        <p className="mt-3 text-1xl font-bold text-brand-dark">
-          {price.toLocaleString("sv-SE")} kr
-        </p>
+        <p className="mt-1 text-xs text-gray-500">Category: {category}</p>
+
+        {discounted ? (
+          <div className="mt-3">
+            <p className="text-sm text-gray-500 line-through">
+              {price.toLocaleString("sv-SE")} kr
+            </p>
+
+            <p className="text-xl font-bold text-brand">
+              {discountedPrice.toLocaleString("sv-SE")} kr
+            </p>
+
+            <span className="mt-1 inline-block rounded-md bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">
+              −20 %
+            </span>
+          </div>
+        ) : (
+          <p className="mt-3 text-xl font-bold text-brand-dark">
+            {price.toLocaleString("sv-SE")} kr
+          </p>
+        )}
 
         <p
           className={clsx(
@@ -45,7 +65,7 @@ function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
           {stock > 0 ? "✓ I lager" : "Slut i lager"}
         </p>
 
-        <p className="mt-1 text-xs text-gray-500">Artikelnummer: {sku}</p>
+        <p className="mt-1 text-xs text-gray-500">Articlenumber: {sku}</p>
 
         <div className="mt-auto flex flex-col gap-2 ">
           <Link
@@ -56,7 +76,7 @@ function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
                 "w-full rounded-xl border-brand text-brand hover:bg-brand-light",
             })}
           >
-            Visa detaljer
+            Show details
           </Link>
 
           <Button
@@ -65,14 +85,15 @@ function ProductCard({ id, name, price, stock, sku, image }: ProductCardProps) {
               addToCart({
                 id,
                 name,
-                price,
+                category,
+                price: getDiscountedPrice(price, category),
                 stock,
                 sku,
               })
             }
-            className="w-full rounded-xl bg-brand text-white hover:bg-brand-dark"
+            className=" cursor-pointer w-full rounded-xl bg-brand text-white hover:bg-brand-dark"
           >
-            Lägg i kundvagn
+            Add to cart
           </Button>
         </div>
       </CardContent>

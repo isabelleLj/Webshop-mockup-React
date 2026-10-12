@@ -7,10 +7,13 @@ function StoreHours() {
   };
   return (
     <>
-      <button onClick={handleToggleHours}>
-        {showHours ? "Dölj öppettider" : "Visa öppettider"}
+      <button
+        onClick={handleToggleHours}
+        className="cursor-pointer rounded-md px-2 py-1 text-sm font-medium transition-colors text-brand hover:bg-gray-100 hover:text-brand-dark"
+      >
+        {showHours ? "Hide storehours" : "Show storehours"}
       </button>
-      {showHours && <p> Mån–fre 10–18, Lör 10–15, Sön stängt</p>}
+      {showHours && <p> Mon–Fri 10–18, Sat 10–15, Sun closed</p>}
     </>
   );
 }

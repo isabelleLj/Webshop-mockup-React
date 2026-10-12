@@ -5,7 +5,7 @@ function ModeToggle() {
 
   return (
     <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-      {theme === "dark" ? "☀️ Ljust läge" : "🌙 Mörkt läge"}
+      {theme === "dark" ? "Light mode" : "Dark mode"}
     </button>
   );
 }

@@ -18,19 +18,18 @@ function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navigation />
-      <Header
-        //title är namnet på prop:en och "Min webbplats är värdet"
-        title="Min webbshop"
-        subtitle="Mitt första react projekt!"
-      />
 
-      <StoreHours />
       <Routes>
         <Route
           path="/"
           element={
             <>
-              <PromoBanner message="20% rabatt på all djurmat" />
+              <Header
+                //title är namnet på prop:en och "Min webbplats är värdet"
+                title="IsaBean webshop"
+                subtitle="My first React project!"
+              />
+              <PromoBanner message="20% discount on all groceries" />
               <ProductList />
             </>
           }

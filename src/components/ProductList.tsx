@@ -12,6 +12,7 @@ type ProductResponse = {
 
 function ProductList({}: ProductListProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const { data, isLoading, error, refetch } = useQuery<ProductResponse>({
     queryKey: ["products"],
     queryFn: () =>
@@ -21,20 +22,24 @@ function ProductList({}: ProductListProps) {
     staleTime: 60000,
   });
 
+  const categories = [
+    ...new Set(data?.products.map((product) => product.category) ?? []),
+  ];
+
   return (
     <section className="bg-warm-white px-6 py-12 md:px-12 md:py-16">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
-            Välkommen till butiken
+            Isabean shop!
           </p>
 
           <h2 className="text-3xl font-bold tracking-tight text-brand-dark md:text-4xl">
-            Upptäck produkterna
+            Explore
           </h2>
 
           <p className="mt-3 max-w-2xl leading-relaxed text-gray-600">
-            Hitta dina favoriter bland våra produkter för husdjur.
+            Find your favorites!
           </p>
         </div>
 
@@ -52,18 +57,32 @@ function ProductList({}: ProductListProps) {
             onClick={() => refetch()}
             className="rounded-xl border-brand px-5 py-3 text-brand hover:bg-brand-light"
           >
-            Uppdatera produkter
+            Update products
           </Button>
         </div>
 
+        <select
+          value={selectedCategory}
+          onChange={(event) => setSelectedCategory(event.target.value)}
+          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-800 shadow-sm sm:max-w-md"
+        >
+          <option value="all">All categories</option>
+
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+
         {isLoading && (
-          <p className="py-8 text-center text-gray-600">Hämtar produkter...</p>
+          <p className="py-8 text-center text-gray-600">Loading products...</p>
         )}
 
         {error && (
           <div className="rounded-xl border border-red-200 bg-red-50 p-6">
             <p className="font-semibold text-red-700">
-              Något gick fel: {error.message}
+              Something went wrong: {error.message}
             </p>
 
             <Button
@@ -71,28 +90,23 @@ function ProductList({}: ProductListProps) {
               onClick={() => refetch()}
               className="mt-4"
             >
-              Försök igen
+              Try again
             </Button>
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className=" mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {data?.products
-            .filter((product: Product) =>
-              product.title
-                .toLocaleLowerCase()
-                .includes(searchTerm.toLocaleLowerCase()),
+            .filter(
+              (product: Product) =>
+                product.title
+                  .toLocaleLowerCase()
+                  .includes(searchTerm.toLocaleLowerCase()) &&
+                (selectedCategory === "all" ||
+                  product.category === selectedCategory),
             )
             .map((product: Product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                sku={product.sku}
-                name={product.title}
-                price={product.price}
-                stock={product.stock}
-                image={product.thumbnail}
-              />
+              <ProductCard key={product.id} product={product} />
             ))}
         </div>
       </div>

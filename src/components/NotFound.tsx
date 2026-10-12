@@ -2,7 +2,7 @@ function NotFound() {
   return (
     <div>
       <h1>404</h1>
-      <p>Sidan kunde inte hittas.</p>
+      <p>Page not found.</p>
     </div>
   );
 }
