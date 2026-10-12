@@ -22,10 +22,10 @@ function OrderConfirmation() {
   if (!state) {
     return (
       <div className="p-6">
-        <h1 className="text-2xl font-bold">Ingen beställning hittades</h1>
+        <h1 className="text-2xl font-bold">No order registerd</h1>
 
-        <p className="mt-2">Du behöver göra en beställning först.</p>
-        <Link to="/">Tillbaka till butiken</Link>
+        <p className="mt-2">You need to place a order first.</p>
+        <Link to="/">Back to shop</Link>
       </div>
     );
   }
@@ -35,11 +35,11 @@ function OrderConfirmation() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-4 text-2xl font-bold">Tack för din beställning!</h1>
+      <h1 className="mb-4 text-2xl font-bold">Thank you for your order!</h1>
 
-      <p>Din beställning har tagits emot.</p>
+      <p>Your order has been recived.</p>
 
-      <h2>Leveransadress</h2>
+      <h2>Address:</h2>
 
       <p>{customer.name}</p>
       <p>{customer.address}</p>
@@ -48,18 +48,18 @@ function OrderConfirmation() {
       </p>
       <p>{customer.email}</p>
 
-      <h2>Din beställning</h2>
+      <h2>Your order</h2>
 
       {items.map((product) => (
         <div key={product.id}>
-          <p>{product.name}</p>
+          <p>{product.title}</p>
           <p>{product.price} kr</p>
         </div>
       ))}
 
-      <p className="font-bold">Totalt: {totalPrice} kr</p>
+      <p className="font-bold">Total: {totalPrice} kr</p>
 
-      <Link to="/">Tillbaka till butiken</Link>
+      <Link to="/">Back to shop</Link>
     </div>
   );
 }

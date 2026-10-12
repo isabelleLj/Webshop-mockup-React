@@ -74,7 +74,7 @@ function Cart() {
         {cart.length > 0 && (
           <>
             <div className="mt-8 border-t border-gray-200 pt-6">
-              <p className="text-sm text-gray-500">Totalt</p>
+              <p className="text-sm text-gray-500">Total</p>
               <p className="mt-1 text-3xl font-bold text-brand-dark">
                 {totalPrice.toLocaleString("sv-SE")} kr
               </p>

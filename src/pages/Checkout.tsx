@@ -43,7 +43,7 @@ function Checkout() {
           </div>
         ))}
 
-        <p className="mt-4 font-bold">Totally: {totalPrice} kr </p>
+        <p className="mt-4 font-bold">Total: {totalPrice} kr </p>
       </div>
 
       <p>Here you register your information.</p>
