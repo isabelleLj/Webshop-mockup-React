@@ -76,7 +76,7 @@ function ProductDetail() {
           onClick={() => {
             addToCart({
               id: data.id,
-              name: data.title,
+              title: data.title,
               category: data.category,
               price: getDiscountedPrice(data.price, data.category),
               stock: data.stock,
