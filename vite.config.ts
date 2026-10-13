@@ -4,8 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 import path from "path";
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: "/Webshop-mockup-React/",
+export default defineConfig(({command}) => ({
+  base: command === "build" ? "/Webshop-mockup-React/" : "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -17,4 +17,4 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 5173
   }
-});
+}));
