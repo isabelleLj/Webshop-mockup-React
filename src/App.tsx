@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail.tsx";
 import Header from "./Header";
 import Footer from "./Footer.tsx";
-import StoreHours from "./components/StoreHours";
 import ProductList from "./components/ProductList.tsx";
 import PromoBanner from "./components/PromoBanner";
 import Navigation from "./components/Navigation.tsx";
